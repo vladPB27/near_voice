@@ -36,6 +36,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_launcher_icons: "^0.8.0"
+  sound_stream:
 
 flutter_icons:
   ios: true

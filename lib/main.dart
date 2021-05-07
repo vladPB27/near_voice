@@ -6,14 +6,15 @@ import 'dart:io';
 import 'package:near_voice/sound_stream.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:hexcolor/hexcolor.dart';
+
 // Change this URL to your own
-// const _SERVER_URL = 'ws://192.168.0.1.ngrok.io';
-// const _SERVER_URL = 'ws://192.168.0.1';
 const _PORT = 8888;
 // const _SERVER_URL = 'ws://192.168.71.10:8888';
 // const _SERVER_URL = 'ws://192.168.1.22:8888';
-const _SERVER_URL = 'ws://192.168.1.7:8888';
+// const _SERVER_URL = 'ws://192.168.71.10:8888';
+
 // const _SERVER_URL = 'ws://192.168.71.115';
+var ipPhone;
 
 void main() {
   // runApp(MyApp());
@@ -60,7 +61,8 @@ class _MyAppState extends State<MyApp> {
   StreamSubscription _playerStatus;
   StreamSubscription _audioStream;
 
-  final channel = IOWebSocketChannel.connect(_SERVER_URL);
+  // final channel = IOWebSocketChannel.connect(_SERVER_URL);
+  final channel = IOWebSocketChannel.connect("ws://${ipPhone}:8888");
 
   @override
   void initState() {
@@ -69,6 +71,7 @@ class _MyAppState extends State<MyApp> {
     // _runServer();
 
     initPlugin();
+    // printIps();
 
     ///ip address
     NetworkInterface.list(includeLoopback: false, type: InternetAddressType.any)
@@ -79,6 +82,10 @@ class _MyAppState extends State<MyApp> {
           // _networkInterface += "### name: ${interface.name}\n";
           _networkInterface;
           int i = 0;
+          ipPhone = interface.addresses;
+          var ipPhones = interface.name;
+          print("ip gotten: $ipPhone");
+          print("ip name: $ipPhones");
           interface.addresses.forEach((address) {
             _networkInterface += "${i++}) ${address.address}\n";
           });
@@ -127,6 +134,27 @@ class _MyAppState extends State<MyApp> {
       _player.initialize(),
     ]);
   }
+
+  ///ip address
+  // Future printIps() async {
+  //   for (var interface in await NetworkInterface.list()) {
+  //     print('== Interface: ${interface.name} ==');
+  //     print("ipmobile: ${interface.addresses[0]}");
+  //     print("ipmobile: ${interface}");
+  //     for (var addr in interface.addresses) {
+  //       print(
+  //           '${addr.address} ${addr.host} ${addr.isLoopback} ${addr.rawAddress} ${addr.type.name}');
+  //       if(addr.address.substring(0,3) == '192') {
+  //         ipPhone = addr.address;
+  //         print("ip phone: ${ipPhone}");
+  //       }
+  //       else{
+  //         print("naaaaa");
+  //       }
+  //     }
+  //   }
+  // }
+
 
   void _startRecord() async {
     await _player.stop();
@@ -247,8 +275,26 @@ void showText(){
 }
 
 void _runServer() async {
+
+  for (var interface in await NetworkInterface.list()) {
+    print('== Interface: ${interface.name} ==');
+    print("ipmobile: ${interface.addresses[0]}");
+    print("ipmobile: ${interface}");
+    for (var addr in interface.addresses) {
+      print(
+          '${addr.address} ${addr.host} ${addr.isLoopback} ${addr
+              .rawAddress} ${addr.type.name}');
+      if (addr.address.substring(0, 3) == '192') {
+        ipPhone = addr.address;
+        print("ip phone: ${ipPhone}");
+      }
+    }
+  }
+
   final connections = Set<WebSocket>();
-  HttpServer.bind('192.168.1.7', _PORT).then((HttpServer server) {
+  // HttpServer.bind('192.168.71.10', _PORT).then((HttpServer server) {
+  print("ip phone server: $ipPhone");
+  HttpServer.bind(ipPhone.toString(), _PORT).then((HttpServer server) {
     print('[+]WebSocket listening at -- ws://192.168.71.115:$_PORT/');
     server.listen((HttpRequest request) {
       WebSocketTransformer.upgrade(request).then((WebSocket ws) {
