@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'dart:io';
+
 // import 'package:sound_stream/sound_stream.dart';
 import 'package:near_voice/sound_stream.dart';
 import 'package:web_socket_channel/io.dart';
@@ -11,9 +12,8 @@ import 'package:hexcolor/hexcolor.dart';
 const _PORT = 8888;
 // const _SERVER_URL = 'ws://192.168.71.10:8888';
 // const _SERVER_URL = 'ws://192.168.1.22:8888';
-// const _SERVER_URL = 'ws://192.168.71.10:8888';
 
-// const _SERVER_URL = 'ws://192.168.71.115';
+const _SERVER_URL = 'ws://192.168.71.10:8888';
 var ipPhone;
 
 void main() {
@@ -42,7 +42,6 @@ void main() {
 //   }
 // }
 
-
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -61,8 +60,8 @@ class _MyAppState extends State<MyApp> {
   StreamSubscription _playerStatus;
   StreamSubscription _audioStream;
 
-  // final channel = IOWebSocketChannel.connect(_SERVER_URL);
-  final channel = IOWebSocketChannel.connect("ws://${ipPhone}:8888");
+  final channel = IOWebSocketChannel.connect(_SERVER_URL);
+  // final channel = IOWebSocketChannel.connect("ws://${ipPhone}:8888");
 
   @override
   void initState() {
@@ -76,7 +75,7 @@ class _MyAppState extends State<MyApp> {
     ///ip address
     NetworkInterface.list(includeLoopback: false, type: InternetAddressType.any)
         .then((List<NetworkInterface> interfaces) {
-      setState( () {
+      setState(() {
         _networkInterface = "";
         interfaces.forEach((interface) {
           // _networkInterface += "### name: ${interface.name}\n";
@@ -92,7 +91,6 @@ class _MyAppState extends State<MyApp> {
         });
       });
     });
-
   }
 
   @override
@@ -105,7 +103,6 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlugin() async {
-
     channel.stream.listen((event) async {
       print(event);
       if (_isPlaying) _player.writeChunk(event);
@@ -155,7 +152,6 @@ class _MyAppState extends State<MyApp> {
   //   }
   // }
 
-
   void _startRecord() async {
     await _player.stop();
     await _recorder.start();
@@ -177,7 +173,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('nearvoice',
+          title: Text(
+            'nearvoice',
             style: TextStyle(color: Colors.lightGreenAccent),
           ),
           backgroundColor: HexColor('#006059'),
@@ -186,9 +183,7 @@ class _MyAppState extends State<MyApp> {
           decoration: BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('assets/nearvoicefont.jpg'),
-                  fit: BoxFit.cover
-              )
-          ),
+                  fit: BoxFit.cover)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.end,
@@ -212,9 +207,10 @@ class _MyAppState extends State<MyApp> {
               RaisedButton(
                 color: Colors.lightGreen,
                 textColor: Colors.white,
-                onPressed: (){
+                onPressed: () {
                   // Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home2()));
-                  Navigator.push(context,
+                  Navigator.push(
+                    context,
                     MaterialPageRoute(builder: (context) => InitialPage()),
                   );
                 },
@@ -234,7 +230,8 @@ class InitialPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('nearvoice',
+        title: Text(
+          'nearvoice',
           style: TextStyle(color: Colors.lightGreenAccent),
         ),
         backgroundColor: HexColor('#006059'),
@@ -243,26 +240,43 @@ class InitialPage extends StatelessWidget {
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/app-04-home.jpg'),
-                fit: BoxFit.cover
-            )
-        ),
+                fit: BoxFit.cover)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            RaisedButton(
-              color: Colors.lightGreen,
-              textColor: Colors.white,
-              onPressed: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MyApp()),
-                );
-                _runServer();
-              },
-              // onPressed: () => Navigator.pushNamed(context, "Home2"),
-              child: Text('Create'),
-            )
+            TextField(
+              decoration: InputDecoration(
+                border: UnderlineInputBorder(),
+                hintText: 'example: ws://ip_address:8888'
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RaisedButton(
+                  color: Colors.lightGreen,
+                  textColor: Colors.white,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyApp()),
+                    );
+                    _runServer();
+                  },
+                  // onPressed: () => Navigator.pushNamed(context, "Home2"),
+                  child: Text('Create'),
+                ),
+                RaisedButton(
+                  color: Colors.amber,
+                  textColor: Colors.white,
+                  onPressed: () {
+
+                  },
+                  child: Text('join'),
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -270,20 +284,18 @@ class InitialPage extends StatelessWidget {
   }
 }
 
-void showText(){
+void showText() {
   print('test of a function');
 }
 
 void _runServer() async {
-
   for (var interface in await NetworkInterface.list()) {
     print('== Interface: ${interface.name} ==');
     print("ipmobile: ${interface.addresses[0]}");
     print("ipmobile: ${interface}");
     for (var addr in interface.addresses) {
       print(
-          '${addr.address} ${addr.host} ${addr.isLoopback} ${addr
-              .rawAddress} ${addr.type.name}');
+          '${addr.address} ${addr.host} ${addr.isLoopback} ${addr.rawAddress} ${addr.type.name}');
       if (addr.address.substring(0, 3) == '192') {
         ipPhone = addr.address;
         print("ip phone: ${ipPhone}");
@@ -292,16 +304,16 @@ void _runServer() async {
   }
 
   final connections = Set<WebSocket>();
-  // HttpServer.bind('192.168.71.10', _PORT).then((HttpServer server) {
-  print("ip phone server: $ipPhone");
-  HttpServer.bind(ipPhone.toString(), _PORT).then((HttpServer server) {
-    print('[+]WebSocket listening at -- ws://192.168.71.115:$_PORT/');
+  HttpServer.bind('192.168.71.10', _PORT).then((HttpServer server) { //ip static
+  // HttpServer.bind(ipPhone.toString(), _PORT).then((HttpServer server) { //own ip address
+    print("ip phone server: $ipPhone");
+    print('[+]WebSocket listening at -- ws://ip_address:$_PORT/');
     server.listen((HttpRequest request) {
       WebSocketTransformer.upgrade(request).then((WebSocket ws) {
         connections.add(ws);
         print('[+]Connected');
         ws.listen(
-              (data) {
+          (data) {
             // Broadcast data to all other clients
             for (var conn in connections) {
               if (conn != ws && conn.readyState == WebSocket.open) {
