@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:near_voice/login.dart';
 import 'package:near_voice/main.dart';
 
 class RouteGenerator {
@@ -8,6 +9,8 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
+        return MaterialPageRoute(builder: (_) => Login());
+      case '/home':
         return MaterialPageRoute(builder: (_) => InitialPage());
       case '/second':
         return MaterialPageRoute(builder: (_) => MyApp());

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:near_voice/route_generator.dart';
 
 import 'dart:io';
 
@@ -17,34 +18,23 @@ const _SERVER_URL = 'ws://192.168.71.10:8888';
 var ipPhone;
 
 void main() {
-  // runApp(MyApp());
-  runApp(MaterialApp(
-    home: InitialPage(),
-  ));
+  runApp(MyApp());
+  // runApp(MaterialApp(
+  //   home: InitialPage(),
+  // ));
 }
-
-// Route<dynamic> generateRoute(RouteSettings settings) {
-//   switch (settings.name) {
-//     case 'Home':
-//       return MaterialPageRoute(builder: (_) => Home());
-//     // case 'browser':
-//     //   return MaterialPageRoute(
-//     //       builder: (_) => DevicesListScreen(deviceType: DeviceType.browser));
-//     // case 'advertiser':
-//     //   return MaterialPageRoute(
-//     //       builder: (_) => DevicesListScreen(deviceType: DeviceType.advertiser));
-//     default:
-//       return MaterialPageRoute(
-//           builder: (_) => Scaffold(
-//             body: Center(
-//                 child: Text('No route defined for ${settings.name}')),
-//           ));
-//   }
-// }
 
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
+
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp(
+      initialRoute: '/',
+      onGenerateRoute: RouteGenerator.generateRoute,
+    );
+  }
 }
 
 class _MyAppState extends State<MyApp> {
