@@ -11,6 +11,15 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    myController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,11 +45,26 @@ class _LoginState extends State<Login> {
                 color: Colors.blueGrey,
                 textColor: Colors.white,
                 onPressed: () {
-                  Navigator.of(context).pushNamed('home');
+
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: Text(myController.text),
+                      );
+                    },
+                  );
+
+                  // Navigator.of(context).pushNamed('home');
                   },
                 // onPressed: () => Navigator.pushNamed(context, "Home2"),
-
-              )
+              ),
+              TextField(
+                controller: myController,
+                decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    hintText: 'example: ws://ip_address:8888'),
+              ),
             ],
           ),
         ),
