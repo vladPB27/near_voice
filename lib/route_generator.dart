@@ -3,6 +3,7 @@ import 'package:near_voice/home.dart';
 import 'package:near_voice/login.dart';
 import 'package:near_voice/main.dart';
 import 'package:near_voice/meet_created.dart';
+import 'package:near_voice/meet_join.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -15,8 +16,14 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => Home());
       case '/meetcreated':
         return MaterialPageRoute(builder: (_) => MeetCreated());
-      case '/second':
-        return MaterialPageRoute(builder: (_) => MyApp());
+      case '/meetjoin':
+        // if (args is String){
+        //   return MaterialPageRoute(builder: (_) => MeetJoin(
+        //     data:args,
+        //   ),
+        //   );
+        // }
+        return MaterialPageRoute(builder: (_) => MeetJoin());
       case '/third':
         // if (args is String){
         //   return MaterialPageRoute(

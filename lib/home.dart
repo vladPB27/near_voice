@@ -4,6 +4,8 @@ import 'package:near_voice/main.dart';
 import 'dart:io';
 
 const _PORT = 8888;
+var ipPhone;
+var ipEnter;
 
 class Home extends StatefulWidget {
   @override
@@ -11,6 +13,7 @@ class Home extends StatefulWidget {
 }
 
 class _InitialPageState extends State<Home> {
+  final String data = "";
   final myController = TextEditingController();
 
   @override
@@ -55,21 +58,17 @@ class _InitialPageState extends State<Home> {
                       Navigator.of(context).pushNamed('/meetcreated');
                       _runServer();
                     },
-                    // onPressed: () => Navigator.pushNamed(context, "Home2"),
                     child: Text('Create'),
                   ),
                   RaisedButton(
                     color: Colors.amber,
                     textColor: Colors.white,
                     onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            content: Text(myController.text),
-                          );
-                        },
-                      );
+                      ipEnter = myController.text;
+                      print("ip enter: $ipEnter");
+                      Navigator.of(context).pushNamed(
+                          '/meetjoin',
+                          arguments: ipEnter);
                     },
                     child: Text('join'),
                   ),
@@ -99,9 +98,9 @@ void _runServer() async {
   }
 
   final connections = Set<WebSocket>();
-  HttpServer.bind('192.168.71.10', _PORT).then((HttpServer server) {
+  // HttpServer.bind('192.168.71.10', _PORT).then((HttpServer server) {
     //ip static
-    // HttpServer.bind(ipPhone.toString(), _PORT).then((HttpServer server) { //own ip address
+    HttpServer.bind(ipPhone.toString(), _PORT).then((HttpServer server) { //own ip address
     print("ip phone server: $ipPhone");
     print('[+]WebSocket listening at -- ws://ip_address:$_PORT/');
     server.listen((HttpRequest request) {

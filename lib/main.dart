@@ -17,7 +17,7 @@ import 'package:hexcolor/hexcolor.dart';
 // const _SERVER_URL = 'ws://192.168.1.22:8888';
 
 // const _SERVER_URL = 'ws://192.168.71.10:8888';
-var ipPhone;
+// var ipPhone;
 
 void main() {
   runApp(MyApp());
