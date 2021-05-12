@@ -45,6 +45,13 @@ class _InitialPageState extends State<Home> {
               TextField(
                 controller: myController,
                 decoration: InputDecoration(
+                  border: UnderlineInputBorder(),
+                  hintText: 'Enter your name'
+                ),
+              ),
+              TextField(
+                controller: myController,
+                decoration: InputDecoration(
                     border: UnderlineInputBorder(),
                     hintText: 'example: ws://ip_address:8888'),
               ),
@@ -55,7 +62,7 @@ class _InitialPageState extends State<Home> {
                     color: Colors.lightGreen,
                     textColor: Colors.white,
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/meetcreated');
+                      Navigator.of(context).pushNamed('/meetcreated',arguments: 'hi to created');
                       _runServer();
                     },
                     child: Text('Create'),
@@ -69,6 +76,7 @@ class _InitialPageState extends State<Home> {
                       Navigator.of(context).pushNamed(
                           '/meetjoin',
                           arguments: ipEnter);
+                          // arguments: 'hello from home');
                     },
                     child: Text('join'),
                   ),

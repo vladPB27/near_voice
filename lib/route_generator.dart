@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:near_voice/home.dart';
+import 'package:near_voice/launch_screen.dart';
 import 'package:near_voice/login.dart';
 import 'package:near_voice/main.dart';
 import 'package:near_voice/meet_created.dart';
@@ -12,10 +13,12 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
+        return MaterialPageRoute(builder: (_) => LaunchScreen());
+      case '/home':
         // return MaterialPageRoute(builder: (_) => Login());
         return MaterialPageRoute(builder: (_) => Home());
       case '/meetcreated':
-        return MaterialPageRoute(builder: (_) => MeetCreated());
+        return MaterialPageRoute(builder: (_) => MeetCreated(data: args,));
       case '/meetjoin':
         // if (args is String){
         //   return MaterialPageRoute(builder: (_) => MeetJoin(
@@ -23,7 +26,7 @@ class RouteGenerator {
         //   ),
         //   );
         // }
-        return MaterialPageRoute(builder: (_) => MeetJoin());
+        return MaterialPageRoute(builder: (_) => MeetJoin(data:args));
       case '/third':
         // if (args is String){
         //   return MaterialPageRoute(

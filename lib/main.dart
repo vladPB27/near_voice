@@ -11,38 +11,15 @@ import 'package:near_voice/sound_stream.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-// Change this URL to your own
-// const _PORT = 8888;
-// const _SERVER_URL = 'ws://192.168.71.10:8888';
-// const _SERVER_URL = 'ws://192.168.1.22:8888';
-
-// const _SERVER_URL = 'ws://192.168.71.10:8888';
-// var ipPhone;
 
 void main() {
   runApp(MyApp());
-  // runApp(Home());
-  // runApp(Login());
-  // runApp(MaterialApp(
-  //   home: InitialPage(),
-  // ));
 }
 
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return MaterialApp(
-  //     title: 'nearvoice',
-  //     // theme: ThemeData(
-  //     //   primarySwatch: Colors.lightGreen,
-  //     // ),
-  //     initialRoute: '/',
-  //     onGenerateRoute: RouteGenerator.generateRoute,
-  //   );
-  // }
 }
 
 class _MyAppState extends State<MyApp> {
@@ -57,9 +34,5 @@ class _MyAppState extends State<MyApp> {
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
-}
-
-void showText() {
-  print('test of a function');
 }
 

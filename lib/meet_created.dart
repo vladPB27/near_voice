@@ -14,6 +14,12 @@ const _SERVER_URL = 'ws://192.168.71.10:8888';
 // var ipPhone;
 
 class MeetCreated extends StatefulWidget {
+  final String data;
+  MeetCreated({
+   Key key,
+   @required this.data
+}) : super(key: key);
+
   @override
   _MeetCreatedState createState() => _MeetCreatedState();
 }
@@ -156,6 +162,11 @@ class _MeetCreatedState extends State<MeetCreated> {
                       ),
                     ),
                     Text("  $_networkInterface"),
+                    Text(
+                      widget.data,
+                      style: TextStyle(fontSize: 20),
+                    ),
+
                     RaisedButton(
                       color: Colors.lightGreen,
                       textColor: Colors.white,

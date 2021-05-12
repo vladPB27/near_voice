@@ -11,11 +11,17 @@ var ipRetrieve = ipEnter;
 // var ipTest = '192.168.71.10';
 
 class MeetJoin extends StatefulWidget {
+  final String data;
 
-  final String arguments;
-  const MeetJoin(
-      {Key key, this.arguments})
-      : super(key: key);
+  MeetJoin({
+    Key key,
+    @required this.data,
+  }) : super(key: key);
+
+  // final String arguments;
+  // const MeetJoin(
+  //     {Key key, this.arguments})
+  //     : super(key: key);
 
   // final record recordObject;
   //
@@ -26,13 +32,6 @@ class MeetJoin extends StatefulWidget {
 }
 
 class _MeetJoinState extends State<MeetJoin> {
-
-//   final String data = "";
-//   MeetJoin({
-//     key key,
-//     @required this.data,
-// }) : super(key: key);
-
 
   String _networkInterface;
 
@@ -48,6 +47,7 @@ class _MeetJoinState extends State<MeetJoin> {
 
   // final channel = IOWebSocketChannel.connect(_SERVER_URL);
   final channel = IOWebSocketChannel.connect("ws://${ipRetrieve}:8888");
+
   // final channel = IOWebSocketChannel.connect("ws://${ipTest}:8888");
   // final channel = IOWebSocketChannel.connect("ws://192.168.71.10:8888");
 
@@ -136,7 +136,6 @@ class _MeetJoinState extends State<MeetJoin> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -175,7 +174,11 @@ class _MeetJoinState extends State<MeetJoin> {
               Text("  $_networkInterface"),
 
               Text("see:  $ipEnter"),
-              Text('${widget.arguments}'),
+              Text('${widget.data}'),
+              Text(
+                widget.data,
+                style: TextStyle(fontSize: 20),
+              ),
 
               Text("see:  $ipRetrieve"),
               // Text('${widget.arguments}'),
