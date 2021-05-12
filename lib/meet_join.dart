@@ -7,7 +7,7 @@ import 'package:near_voice/sound_stream.dart';
 import 'package:web_socket_channel/io.dart';
 import 'dart:io';
 
-// var ipRetrieve = ipEnter;
+var ipRetrieve = ipEnter;
 // var ipTest = '192.168.71.10';
 
 class MeetJoin extends StatefulWidget {
@@ -47,7 +47,7 @@ class _MeetJoinState extends State<MeetJoin> {
   StreamSubscription _audioStream;
 
   // final channel = IOWebSocketChannel.connect(_SERVER_URL);
-  final channel = IOWebSocketChannel.connect("ws://${ipEnter}:8888");
+  final channel = IOWebSocketChannel.connect("ws://${ipRetrieve}:8888");
   // final channel = IOWebSocketChannel.connect("ws://${ipTest}:8888");
   // final channel = IOWebSocketChannel.connect("ws://192.168.71.10:8888");
 
@@ -58,7 +58,7 @@ class _MeetJoinState extends State<MeetJoin> {
     // _runServer();
 
     initPlugin();
-    print("ip retrieve: $ipEnter");
+    print("ip retrieve: $ipRetrieve");
 
     ///ip address
     NetworkInterface.list(includeLoopback: false, type: InternetAddressType.any)
@@ -173,8 +173,12 @@ class _MeetJoinState extends State<MeetJoin> {
                 ),
               ),
               Text("  $_networkInterface"),
+
               Text("see:  $ipEnter"),
               Text('${widget.arguments}'),
+
+              Text("see:  $ipRetrieve"),
+              // Text('${widget.arguments}'),
               RaisedButton(
                 color: Colors.lightGreen,
                 textColor: Colors.white,
