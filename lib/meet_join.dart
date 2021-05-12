@@ -174,7 +174,7 @@ class _MeetJoinState extends State<MeetJoin> {
               ),
               Text("  $_networkInterface"),
               Text("see:  $ipEnter"),
-              // Text('${widget.arguments}'),
+              Text('${widget.arguments}'),
               RaisedButton(
                 color: Colors.lightGreen,
                 textColor: Colors.white,
