@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:near_voice/home.dart';
+import 'package:near_voice/login.dart';
 
 class LaunchScreen extends StatefulWidget {
   const LaunchScreen({Key key}) : super(key: key);
@@ -18,7 +19,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
     // TODO: implement initState
     super.initState();
     Timer(Duration(seconds: 3),(){
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => Home()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => Login()));
     });
   }
   

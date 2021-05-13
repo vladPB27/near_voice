@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+
 // import 'package:near_voice/main.dart';
 import 'main.dart';
 
@@ -11,12 +13,13 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
   final myController = TextEditingController();
+  final myController2 = TextEditingController();
 
   @override
   void dispose() {
     myController.dispose();
+    myController2.dispose();
     super.dispose();
   }
 
@@ -24,46 +27,39 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        // appBar: AppBar(
-        //   title: Text(
-        //     'LOGIN',
-        //     style: TextStyle(color: Colors.lightGreenAccent),
-        //   ),
-        //   backgroundColor: HexColor('#006059'),
-        // ),
         body: Container(
+          padding: EdgeInsets.all(60),
           decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/app-02-login.jpg'),
-                  fit: BoxFit.cover)),
+            image: DecorationImage(
+              image: AssetImage('assets/login.jpg'),
+              fit: BoxFit.cover
+            )
+          ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text('nearvoice'),
+              Text('connect your voice'),
+              TextField(
+                controller: myController,
+                decoration: InputDecoration(
+                    border: UnderlineInputBorder(), hintText: 'Name'),
+              ),
+              TextField(
+                controller: myController2,
+                decoration: InputDecoration(
+                    border: UnderlineInputBorder(), hintText: 'Status'),
+              ),
               RaisedButton(
                 child: Text('Log in'),
                 color: Colors.blueGrey,
                 textColor: Colors.white,
                 onPressed: () {
-
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        content: Text(myController.text),
-                      );
-                    },
-                  );
-
-                  // Navigator.of(context).pushNamed('home');
-                  },
+                  final name = myController.text;
+                  Navigator.of(context).pushNamed('/home', arguments: name);
+                },
                 // onPressed: () => Navigator.pushNamed(context, "Home2"),
-              ),
-              TextField(
-                controller: myController,
-                decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
-                    hintText: 'example: ws://ip_address:8888'),
               ),
             ],
           ),

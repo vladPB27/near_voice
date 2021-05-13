@@ -16,7 +16,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => LaunchScreen());
       case '/home':
         // return MaterialPageRoute(builder: (_) => Login());
-        return MaterialPageRoute(builder: (_) => Home());
+        return MaterialPageRoute(builder: (_) => Home(data:args));
       case '/meetcreated':
         return MaterialPageRoute(builder: (_) => MeetCreated(data: args,));
       case '/meetjoin':

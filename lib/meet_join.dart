@@ -18,15 +18,6 @@ class MeetJoin extends StatefulWidget {
     @required this.data,
   }) : super(key: key);
 
-  // final String arguments;
-  // const MeetJoin(
-  //     {Key key, this.arguments})
-  //     : super(key: key);
-
-  // final record recordObject;
-  //
-  // MeetJoin({Key key, @required this.recordObject}) : super(key: key);
-
   @override
   _MeetJoinState createState() => _MeetJoinState();
 }
