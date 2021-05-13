@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:after_layout/after_layout.dart';
 
 // import 'package:near_voice/main.dart';
 import 'main.dart';
@@ -12,7 +14,12 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginState extends State<Login> with AfterLayoutMixin{
+  @override
+  void afterFirstLayout(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  }
+
   final myController = TextEditingController();
   final myController2 = TextEditingController();
 
@@ -27,39 +34,78 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
           padding: EdgeInsets.all(60),
           decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/login.jpg'),
-              fit: BoxFit.cover
-            )
-          ),
+              image: DecorationImage(
+                  image: AssetImage('assets/login.jpg'), fit: BoxFit.cover)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text('nearvoice'),
-              Text('connect your voice'),
-              TextField(
-                controller: myController,
-                decoration: InputDecoration(
-                    border: UnderlineInputBorder(), hintText: 'Name'),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 3.0,top: 80.0),
+                child: Text(
+                  'nearvoice',
+                  // style: TextStyle(color: HexColor('#003333'), fontSize: 40),
+                  style: TextStyle(
+                      color: HexColor('#074643'),
+                      fontSize: 42,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
-              TextField(
-                controller: myController2,
-                decoration: InputDecoration(
-                    border: UnderlineInputBorder(), hintText: 'Status'),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 60),
+                child: Text(
+                  'connect your voice',
+                  style: TextStyle(
+                      color: HexColor('#074643'),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
-              RaisedButton(
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: TextField(
+                  controller: myController,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(30.0))),
+                      hintText: 'Name'),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: TextField(
+                  controller: myController2,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(30.0))),
+                      hintText: 'Status'),
+                ),
+              ),
+              TextButton(
+                style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  backgroundColor: MaterialStateProperty.all<Color>(HexColor('#074643')),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+
+                      // side: BorderSide(color: Colors.red),
+                    ),
+                  ),
+                ),
                 child: Text('Log in'),
-                color: Colors.blueGrey,
-                textColor: Colors.white,
+                // color: HexColor('#074643'),
+                // textColor: Colors.white,
                 onPressed: () {
                   final name = myController.text;
                   Navigator.of(context).pushNamed('/home', arguments: name);
                 },
-                // onPressed: () => Navigator.pushNamed(context, "Home2"),
               ),
             ],
           ),
