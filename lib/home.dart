@@ -26,14 +26,14 @@ class _InitialPageState extends State<Home> {
   final myController = TextEditingController();
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     initPlatformState();
   }
 
   Future<void> initPlatformState() async {
     String ipAddress;
-    try{
+    try {
       ipAddress = await GetIp.ipAddress;
     } on PlatformException {
       ipAddress = 'Failed to get ipAddress';
@@ -57,20 +57,35 @@ class _InitialPageState extends State<Home> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        resizeToAvoidBottomInset: false,
+        // resizeToAvoidBottomInset: false,
         // backgroundColor: Colors.white,
+        // backgroundColor: HexColor("#006059"),
         body: Container(
-          padding: EdgeInsets.all(60),
+          padding: EdgeInsets.all(50),
           child: Column(
             children: [
-              Text('Hi, ${widget.data}'),
-              Text('ipAddress, ${_ip}'),
-              Text('ipAddress 2, ${ipPhone}'),
+              Row(
+                children: [
+                  Icon(
+                    Icons.circle,
+                    color: Colors.lightGreenAccent,
+                    size: 50.0,
+                  ),
+                  Text(
+                    '  Hi, ${widget.data}',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
               Expanded(
-                  child: FlatButton(
-                onPressed: () {},
-                child: Image.asset('assets/png/profile-1.png'),
-              )),
+                child: FlatButton(
+                  onPressed: () {},
+                  child: Image.asset('assets/png/profile-1.png'),
+                ),
+              ),
               Row(
                 children: [
                   Expanded(
@@ -101,36 +116,10 @@ class _InitialPageState extends State<Home> {
               TextField(
                 controller: myController,
                 decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
-                    hintText: 'example: ws://ip_address:8888'),
+                    labelText: "IP Address Meeting",
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter ip address'),
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              // RaisedButton(
-              //   color: Colors.lightGreen,
-              //   textColor: Colors.white,
-              //   onPressed: () {
-              //     Navigator.of(context).pushNamed('/meetcreated',
-              //         arguments: 'you are the server');
-              //     _runServer();
-              //   },
-              //   child: Text('Create'),
-              // ),
-              // RaisedButton(
-              //   color: Colors.amber,
-              //   textColor: Colors.white,
-              //   onPressed: () {
-              //     ipEnter = myController.text;
-              //     print("ip enter: $ipEnter");
-              //     Navigator.of(context)
-              //         .pushNamed('/meetjoin', arguments: ipEnter);
-              //     // arguments: 'hello from home');
-              //   },
-              //   child: Text('join'),
-              // ),
-              //   ],
-              // ),
             ],
           ),
         ),
