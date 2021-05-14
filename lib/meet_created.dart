@@ -124,10 +124,11 @@ class _MeetCreatedState extends State<MeetCreated> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
+          backgroundColor: HexColor('#006059'),
               appBar: AppBar(
                 title: Text(
                   'nearvoice server',
-                  style: TextStyle(color: Colors.lightGreenAccent),
+                  style: TextStyle(color: Colors.white70),
                 ),
                 backgroundColor: HexColor('#006059'),
               ),
@@ -135,32 +136,50 @@ class _MeetCreatedState extends State<MeetCreated> {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage('assets/nearvoicefont.jpg'),
+                        // image: AssetImage('assets/icon/icon.png'),
                         fit: BoxFit.cover)
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    GestureDetector(
-                      onTapDown: (tap) {
-                        _startRecord();
-                      },
-                      onTapUp: (tap) {
-                        _stopRecord();
-                      },
-                      onTapCancel: () {
-                        _stopRecord();
-                      },
-                      child: Icon(
-                        _isRecording ? Icons.mic_off : Icons.mic,
-                        size: 128,
-                      ),
-                    ),
                     Text("  $_networkInterface"),
-                    Text(
-                      widget.data,
-                      style: TextStyle(fontSize: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Icon(
+                          Icons.arrow_back,
+                          size: 60,
+                          color: Colors.white70,
+                        ),
+                        GestureDetector(
+                          onTapDown: (tap) {
+                            _startRecord();
+                          },
+                          onTapUp: (tap) {
+                            _stopRecord();
+                          },
+                          onTapCancel: () {
+                            _stopRecord();
+                          },
+                          child: Icon(
+                            _isRecording ? Icons.mic_off : Icons.mic,
+                            size: 60,
+                            color: Colors.white70,
+                          ),
+                        ),
+                        Icon(
+                          Icons.volume_mute,
+                          size: 60,
+                          color: Colors.white70,
+                        ),
+                      ],
                     ),
+
+                    // Text(
+                    //   widget.data,
+                    //   style: TextStyle(fontSize: 20),
+                    // ),
 
                     // RaisedButton(
                     //   color: Colors.lightGreen,

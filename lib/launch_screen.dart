@@ -30,7 +30,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
       body: Center(
         child: Column(
           children: [
-            Image.asset("assets/app-01-launch.jpg")
+            Image.asset("assets/png/app-01-launch.png")
           ],
         ),
       ),

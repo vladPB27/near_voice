@@ -135,7 +135,7 @@ class _MeetJoinState extends State<MeetJoin> {
         appBar: AppBar(
           title: Text(
             'nearvoice client',
-            style: TextStyle(color: Colors.lightGreenAccent),
+            style: TextStyle(color: Colors.white70),
           ),
           backgroundColor: HexColor('#006059'),
         ),
@@ -148,31 +148,42 @@ class _MeetJoinState extends State<MeetJoin> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              GestureDetector(
-                onTapDown: (tap) {
-                  _startRecord();
-                },
-                onTapUp: (tap) {
-                  _stopRecord();
-                },
-                onTapCancel: () {
-                  _stopRecord();
-                },
-                child: Icon(
-                  _isRecording ? Icons.mic_off : Icons.mic,
-                  size: 128,
-                ),
-              ),
               Text("  $_networkInterface"),
-
-              Text("see:  $ipEnter"),
-              Text('${widget.data}'),
               Text(
                 widget.data,
                 style: TextStyle(fontSize: 20),
               ),
-
-              Text("see:  $ipRetrieve"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Icon(
+                    Icons.arrow_back,
+                    size: 60,
+                    color: Colors.white70,
+                  ),
+                  GestureDetector(
+                    onTapDown: (tap) {
+                      _startRecord();
+                    },
+                    onTapUp: (tap) {
+                      _stopRecord();
+                    },
+                    onTapCancel: () {
+                      _stopRecord();
+                    },
+                    child: Icon(
+                      _isRecording ? Icons.mic_off : Icons.mic,
+                      size: 60,
+                      color: Colors.white70,
+                    ),
+                  ),
+                  Icon(
+                    Icons.volume_mute,
+                    size: 60,
+                    color: Colors.white70,
+                  ),
+                ],
+              ),
               // Text('${widget.arguments}'),
               // RaisedButton(
               //   color: Colors.lightGreen,

@@ -59,102 +59,35 @@ class _InitialPageState extends State<Home> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          // resizeToAvoidBottomInset: false,
+        // resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white,
           // backgroundColor: HexColor("#006059"),
-          body:
-        // Column(
-          //   mainAxisSize: MainAxisSize.max,
-          //   children: [
-          //     Container(
-          //       height: 150,
-          //       // width: 100,
-          //       color: Colors.grey,
-          //       child: Row(
-          //         children: [
-          //           Icon(
-          //             Icons.circle,
-          //           ),
-          //           Text('welcome')
-          //         ],
-          //       ),
-          //     ),
-          //     Container(
-          //       height: 250,
-          //       // width: 100,
-          //       color: Colors.amber,
-          //     ),
-          //     Container(
-          //       height: 250,
-          //       // width: 100,
-          //       color: Colors.green,
-          //       child: Row(
-          //         children: [
-          //           Expanded(
-          //             ///create
-          //             child: FlatButton(
-          //               onPressed: () {
-          //                 Navigator.of(context).pushNamed('/meetcreated',
-          //                     arguments: 'you are the server');
-          //                 _runServer();
-          //               },
-          //               child: Image.asset('assets/png/create-1.png'),
-          //             ),
-          //           ),
-          //           Expanded(
-          //             ///join
-          //             child: FlatButton(
-          //               onPressed: () {
-          //                 ipEnter = myController.text;
-          //                 print("ip enter: $ipEnter");
-          //                 Navigator.of(context)
-          //                     .pushNamed('/meetjoin', arguments: ipEnter);
-          //               },
-          //               child: Image.asset('assets/png/join-1.png'),
-          //               // child: Image.asset('assets/logo.svg'),
-          //             ),
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //     Container(
-          //       height: 150,
-          //       // width: 100,
-          //       color: Colors.orange,
-          //     ),
-          //   ],
-          // )
-          Container(
-            padding: EdgeInsets.all(50),
-            child: Column(
-              children: [
-                Row(
+          body: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                height: 150,
+                // width: 100,
+                color: Colors.grey,
+                child: Row(
                   children: [
                     Icon(
                       Icons.circle,
-                      color: Colors.lightGreenAccent,
-                      size: 50.0,
                     ),
-                    Text(
-                      '  Hi, ${widget.data}',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
+                    Text('welcome')
                   ],
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: FlatButton(
-                        onPressed: () {},
-                        child: Image.asset('assets/png/profile-1.png'),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
+              ),
+              Container(
+                height: 250,
+                // width: 100,
+                color: Colors.amber,
+              ),
+              Container(
+                height: 250,
+                // width: 100,
+                color: Colors.green,
+                child: Row(
                   children: [
                     Expanded(
                       ///create
@@ -182,17 +115,83 @@ class _InitialPageState extends State<Home> {
                     ),
                   ],
                 ),
-                TextField(
-                  controller: myController,
-                  decoration: InputDecoration(
-                      labelText: "IP Address Meeting",
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter ip address'),
-                ),
-              ],
-            ),
-          ),
-          ),
+              ),
+              Container(
+                height: 150,
+                // width: 100,
+                color: Colors.orange,
+              ),
+            ],
+          )
+        // Container(
+        //   padding: EdgeInsets.all(50),
+        //   child: Column(
+        //     children: [
+        //       Row(
+        //         children: [
+        //           Icon(
+        //             Icons.circle,
+        //             color: Colors.lightGreenAccent,
+        //             size: 50.0,
+        //           ),
+        //           Text(
+        //             '  Hi, ${widget.data}',
+        //             textAlign: TextAlign.left,
+        //             style: TextStyle(
+        //               fontSize: 18,
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //       Row(
+        //         children: [
+        //           Expanded(
+        //             child: FlatButton(
+        //               onPressed: () {},
+        //               child: Image.asset('assets/png/profile-1.png'),
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //       Row(
+        //         children: [
+        //           Expanded(
+        //             ///create
+        //             child: FlatButton(
+        //               onPressed: () {
+        //                 Navigator.of(context).pushNamed('/meetcreated',
+        //                     arguments: 'you are the server');
+        //                 _runServer();
+        //               },
+        //               child: Image.asset('assets/png/create-1.png'),
+        //             ),
+        //           ),
+        //           Expanded(
+        //             ///join
+        //             child: FlatButton(
+        //               onPressed: () {
+        //                 ipEnter = myController.text;
+        //                 print("ip enter: $ipEnter");
+        //                 Navigator.of(context)
+        //                     .pushNamed('/meetjoin', arguments: ipEnter);
+        //               },
+        //               child: Image.asset('assets/png/join-1.png'),
+        //               // child: Image.asset('assets/logo.svg'),
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //       TextField(
+        //         controller: myController,
+        //         decoration: InputDecoration(
+        //             labelText: "IP Address Meeting",
+        //             border: OutlineInputBorder(),
+        //             hintText: 'Enter ip address'),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+      ),
     );
   }
 }
@@ -225,7 +224,7 @@ void _runServer() async {
         connections.add(ws);
         print('[+]Connected');
         ws.listen(
-          (data) {
+              (data) {
             // Broadcast data to all other clients
             for (var conn in connections) {
               if (conn != ws && conn.readyState == WebSocket.open) {

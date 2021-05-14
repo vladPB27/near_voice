@@ -33,12 +33,13 @@ dependencies:
   imagebutton: ^0.0.6
   after_layout: ^1.1.0
   get_ip: ^0.4.0
+  flutter_svg: ^0.17.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_launcher_icons: "^0.8.0"
+  flutter_launcher_icons: "^0.7.0"
   sound_stream:
 
 flutter_icons:
@@ -63,6 +64,7 @@ flutter:
     - assets/png/profile-1.png
     - assets/png/create-1.png
     - assets/png/join-1.png
+    - assets/png/app-01-launch.png
     - assets/logo.svg
     - assets/svg/login.svg
 
