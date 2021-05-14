@@ -43,11 +43,7 @@ class _MeetCreatedState extends State<MeetCreated> {
   @override
   void initState() {
     super.initState();
-
-    // _runServer();
-
     initPlugin();
-    // printIps();
 
     ///ip address
     NetworkInterface.list(includeLoopback: false, type: InternetAddressType.any)
@@ -59,9 +55,7 @@ class _MeetCreatedState extends State<MeetCreated> {
           _networkInterface;
           int i = 0;
           ipPhone = interface.addresses;
-          var ipPhones = interface.name;
           print("ip gotten: $ipPhone");
-          print("ip name: $ipPhones");
           interface.addresses.forEach((address) {
             _networkInterface += "${i++}) ${address.address}\n";
           });
@@ -132,7 +126,7 @@ class _MeetCreatedState extends State<MeetCreated> {
         home: Scaffold(
               appBar: AppBar(
                 title: Text(
-                  'nearvoice',
+                  'nearvoice server',
                   style: TextStyle(color: Colors.lightGreenAccent),
                 ),
                 backgroundColor: HexColor('#006059'),
@@ -141,7 +135,8 @@ class _MeetCreatedState extends State<MeetCreated> {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage('assets/nearvoicefont.jpg'),
-                        fit: BoxFit.cover)),
+                        fit: BoxFit.cover)
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -167,19 +162,18 @@ class _MeetCreatedState extends State<MeetCreated> {
                       style: TextStyle(fontSize: 20),
                     ),
 
-                    RaisedButton(
-                      color: Colors.lightGreen,
-                      textColor: Colors.white,
-                      onPressed: () {
-                        // Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home2()));
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Home()),
-                        );
-                      },
-                      // onPressed: () => Navigator.pushNamed(context, "Home2"),
-                      child: Text('Back'),
-                    )
+                    // RaisedButton(
+                    //   color: Colors.lightGreen,
+                    //   textColor: Colors.white,
+                    //   onPressed: () {
+                    //     Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute(builder: (context) => Home()),
+                    //     );
+                    //   },
+                    //   // onPressed: () => Navigator.pushNamed(context, "Home2"),
+                    //   child: Text('Back'),
+                    // )
                   ],
                 ),
               ),

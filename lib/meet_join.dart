@@ -130,6 +130,7 @@ class _MeetJoinState extends State<MeetJoin> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: Text(
@@ -173,19 +174,19 @@ class _MeetJoinState extends State<MeetJoin> {
 
               Text("see:  $ipRetrieve"),
               // Text('${widget.arguments}'),
-              RaisedButton(
-                color: Colors.lightGreen,
-                textColor: Colors.white,
-                onPressed: () {
-                  // Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home2()));
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Home()),
-                  );
-                },
-                // onPressed: () => Navigator.pushNamed(context, "Home2"),
-                child: Text('Back'),
-              )
+              // RaisedButton(
+              //   color: Colors.lightGreen,
+              //   textColor: Colors.white,
+              //   onPressed: () {
+              //     // Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home2()));
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => Home()),
+              //     );
+              //   },
+              //   // onPressed: () => Navigator.pushNamed(context, "Home2"),
+              //   child: Text('Back'),
+              // )
             ],
           ),
         ),

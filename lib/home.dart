@@ -9,12 +9,12 @@ const _PORT = 8888;
 var ipPhone;
 var ipEnter;
 
+var ip = InternetAddress.ANY_IP_V4;
+
 class Home extends StatefulWidget {
   final String data;
-  Home({
-    Key key,
-    @required this.data
-  }) : super(key: key);
+
+  Home({Key key, @required this.data}) : super(key: key);
 
   @override
   _InitialPageState createState() => _InitialPageState();
@@ -33,21 +33,45 @@ class _InitialPageState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         // backgroundColor: Colors.white,
         body: Container(
           padding: EdgeInsets.all(60),
           child: Column(
             children: [
-
               Text('Hi, ${widget.data}'),
-              Expanded(child: Image.asset('assets/app-02-login.jpg',),
-              ),
+              Expanded(
+                  child: FlatButton(
+                onPressed: () {},
+                child: Image.asset('assets/png/profile-1.png'),
+              )),
               Row(
                 children: [
-                  Expanded(child: Image.asset('assets/nearvoicefont.jpg',),
+                  Expanded(
+                    ///create
+                    child: FlatButton(
+                      onPressed: () {
+                        print("my ip: $ip");
+                        Navigator.of(context).pushNamed('/meetcreated',
+                            arguments: 'you are the server');
+                        _runServer();
+                      },
+                      child: Image.asset('assets/png/create-1.png'),
+                    ),
                   ),
-                  Expanded(child: Image.asset('assets/png/createss.png',),
+                  Expanded(
+                    ///join
+                    child: FlatButton(
+                      onPressed: () {
+                        ipEnter = myController.text;
+                        print("ip enter: $ipEnter");
+                        Navigator.of(context)
+                            .pushNamed('/meetjoin', arguments: ipEnter);
+                      },
+                      child: Image.asset('assets/png/join-1.png'),
+                    ),
                   ),
                 ],
               ),
@@ -57,33 +81,33 @@ class _InitialPageState extends State<Home> {
                     border: UnderlineInputBorder(),
                     hintText: 'example: ws://ip_address:8888'),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  RaisedButton(
-                    color: Colors.lightGreen,
-                    textColor: Colors.white,
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/meetcreated',
-                          arguments: 'hi to created');
-                      _runServer();
-                    },
-                    child: Text('Create'),
-                  ),
-                  RaisedButton(
-                    color: Colors.amber,
-                    textColor: Colors.white,
-                    onPressed: () {
-                      ipEnter = myController.text;
-                      print("ip enter: $ipEnter");
-                      Navigator.of(context)
-                          .pushNamed('/meetjoin', arguments: ipEnter);
-                      // arguments: 'hello from home');
-                    },
-                    child: Text('join'),
-                  ),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              // RaisedButton(
+              //   color: Colors.lightGreen,
+              //   textColor: Colors.white,
+              //   onPressed: () {
+              //     Navigator.of(context).pushNamed('/meetcreated',
+              //         arguments: 'you are the server');
+              //     _runServer();
+              //   },
+              //   child: Text('Create'),
+              // ),
+              // RaisedButton(
+              //   color: Colors.amber,
+              //   textColor: Colors.white,
+              //   onPressed: () {
+              //     ipEnter = myController.text;
+              //     print("ip enter: $ipEnter");
+              //     Navigator.of(context)
+              //         .pushNamed('/meetjoin', arguments: ipEnter);
+              //     // arguments: 'hello from home');
+              //   },
+              //   child: Text('join'),
+              // ),
+              //   ],
+              // ),
             ],
           ),
         ),
@@ -95,8 +119,9 @@ class _InitialPageState extends State<Home> {
 void _runServer() async {
   for (var interface in await NetworkInterface.list()) {
     print('== Interface: ${interface.name} ==');
-    print("ipmobile: ${interface.addresses[0]}");
-    print("ipmobile: ${interface}");
+    print('== Interface 2: ${interface.addresses} ==');
+    // print("ipmobile: ${interface.addresses[0]}");
+    // print("ipmobile: ${interface}");
     for (var addr in interface.addresses) {
       print(
           '${addr.address} ${addr.host} ${addr.isLoopback} ${addr.rawAddress} ${addr.type.name}');
@@ -113,7 +138,7 @@ void _runServer() async {
   HttpServer.bind(ipPhone.toString(), _PORT).then((HttpServer server) {
     //own ip address
     print("ip phone server: $ipPhone");
-    print('[+]WebSocket listening at -- ws://ip_address:$_PORT/');
+    print('[+]WebSocket listening at -- ws://$ipPhone:$_PORT/');
     server.listen((HttpRequest request) {
       WebSocketTransformer.upgrade(request).then((WebSocket ws) {
         connections.add(ws);

@@ -33,6 +33,7 @@ class _LoginState extends State<Login> with AfterLayoutMixin{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         resizeToAvoidBottomInset: false,
         body: Container(
