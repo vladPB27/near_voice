@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:near_voice/main.dart';
 import 'package:imagebutton/imagebutton.dart';
+import 'package:get_ip/get_ip.dart';
 import 'dart:io';
 
 const _PORT = 8888;
 var ipPhone;
 var ipEnter;
-
-var ip = InternetAddress.ANY_IP_V4;
 
 class Home extends StatefulWidget {
   final String data;
@@ -22,7 +22,29 @@ class Home extends StatefulWidget {
 
 class _InitialPageState extends State<Home> {
   // final String data = "";
+  String _ip = "unknown";
   final myController = TextEditingController();
+
+  @override
+  void initState(){
+    super.initState();
+    initPlatformState();
+  }
+
+  Future<void> initPlatformState() async {
+    String ipAddress;
+    try{
+      ipAddress = await GetIp.ipAddress;
+    } on PlatformException {
+      ipAddress = 'Failed to get ipAddress';
+    }
+
+    if (!mounted) return;
+    setState(() {
+      _ip = ipAddress;
+      ipPhone = _ip;
+    });
+  }
 
   @override
   void dispose() {
@@ -42,6 +64,8 @@ class _InitialPageState extends State<Home> {
           child: Column(
             children: [
               Text('Hi, ${widget.data}'),
+              Text('ipAddress, ${_ip}'),
+              Text('ipAddress 2, ${ipPhone}'),
               Expanded(
                   child: FlatButton(
                 onPressed: () {},
@@ -53,7 +77,6 @@ class _InitialPageState extends State<Home> {
                     ///create
                     child: FlatButton(
                       onPressed: () {
-                        print("my ip: $ip");
                         Navigator.of(context).pushNamed('/meetcreated',
                             arguments: 'you are the server');
                         _runServer();
@@ -117,20 +140,20 @@ class _InitialPageState extends State<Home> {
 }
 
 void _runServer() async {
-  for (var interface in await NetworkInterface.list()) {
-    print('== Interface: ${interface.name} ==');
-    print('== Interface 2: ${interface.addresses} ==');
-    // print("ipmobile: ${interface.addresses[0]}");
-    // print("ipmobile: ${interface}");
-    for (var addr in interface.addresses) {
-      print(
-          '${addr.address} ${addr.host} ${addr.isLoopback} ${addr.rawAddress} ${addr.type.name}');
-      if (addr.address.substring(0, 3) == '192') {
-        ipPhone = addr.address;
-        print("ip phone: ${ipPhone}");
-      }
-    }
-  }
+  // for (var interface in await NetworkInterface.list()) {
+  //   print('== Interface: ${interface.name} ==');
+  //   print('== Interface 2: ${interface.addresses} ==');
+  //   // print("ipmobile: ${interface.addresses[0]}");
+  //   // print("ipmobile: ${interface}");
+  //   for (var addr in interface.addresses) {
+  //     print(
+  //         '${addr.address} ${addr.host} ${addr.isLoopback} ${addr.rawAddress} ${addr.type.name}');
+  //     if (addr.address.substring(0, 3) == '192') {
+  //       ipPhone = addr.address;
+  //       print("ip phone: ${ipPhone}");
+  //     }
+  //   }
+  // }
 
   final connections = Set<WebSocket>();
   // HttpServer.bind('192.168.71.10', _PORT).then((HttpServer server) {
