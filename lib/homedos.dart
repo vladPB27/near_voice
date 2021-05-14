@@ -13,16 +13,16 @@ const _PORT = 8888;
 var ipPhone;
 var ipEnter;
 
-class Home extends StatefulWidget {
+class Homedos extends StatefulWidget {
   final String data;
 
-  Home({Key key, @required this.data}) : super(key: key);
+  Homedos({Key key, @required this.data}) : super(key: key);
 
   @override
   _InitialPageState createState() => _InitialPageState();
 }
 
-class _InitialPageState extends State<Home> {
+class _InitialPageState extends State<Homedos> {
   // final String data = "";
   String _ip = "unknown";
   final myController = TextEditingController();

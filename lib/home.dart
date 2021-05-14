@@ -62,136 +62,89 @@ class _InitialPageState extends State<Home> {
           // resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white,
           // backgroundColor: HexColor("#006059"),
-          body:
-        // Column(
-          //   mainAxisSize: MainAxisSize.max,
-          //   children: [
-          //     Container(
-          //       height: 150,
-          //       // width: 100,
-          //       color: Colors.grey,
-          //       child: Row(
-          //         children: [
-          //           Icon(
-          //             Icons.circle,
-          //           ),
-          //           Text('welcome')
-          //         ],
-          //       ),
-          //     ),
-          //     Container(
-          //       height: 250,
-          //       // width: 100,
-          //       color: Colors.amber,
-          //     ),
-          //     Container(
-          //       height: 250,
-          //       // width: 100,
-          //       color: Colors.green,
-          //       child: Row(
-          //         children: [
-          //           Expanded(
-          //             ///create
-          //             child: FlatButton(
-          //               onPressed: () {
-          //                 Navigator.of(context).pushNamed('/meetcreated',
-          //                     arguments: 'you are the server');
-          //                 _runServer();
-          //               },
-          //               child: Image.asset('assets/png/create-1.png'),
-          //             ),
-          //           ),
-          //           Expanded(
-          //             ///join
-          //             child: FlatButton(
-          //               onPressed: () {
-          //                 ipEnter = myController.text;
-          //                 print("ip enter: $ipEnter");
-          //                 Navigator.of(context)
-          //                     .pushNamed('/meetjoin', arguments: ipEnter);
-          //               },
-          //               child: Image.asset('assets/png/join-1.png'),
-          //               // child: Image.asset('assets/logo.svg'),
-          //             ),
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //     Container(
-          //       height: 150,
-          //       // width: 100,
-          //       color: Colors.orange,
-          //     ),
-          //   ],
-          // )
-          Container(
-            padding: EdgeInsets.all(50),
+          body: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(35),
             child: Column(
               children: [
-                Row(
-                  children: [
-                    Icon(
-                      Icons.circle,
-                      color: Colors.lightGreenAccent,
-                      size: 50.0,
-                    ),
-                    Text(
-                      '  Hi, ${widget.data}',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontSize: 18,
+                Padding(
+                  padding: const EdgeInsets.only(top: 20,bottom: 50),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.circle,
+                        color: Colors.lightGreenAccent,
+                        size: 50.0,
                       ),
-                    ),
-                  ],
+                      Text(
+                        '  Hi, ${widget.data}',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Row(
                   children: [
-                    Expanded(
-                      child: FlatButton(
-                        onPressed: () {},
-                        child: Image.asset('assets/png/profile-1.png'),
+                    // Padding(
+                      // padding: const EdgeInsets.only(bottom: 5.0),
+                      // child:
+                      Expanded(
+                        child: FlatButton(
+                          onPressed: () {},
+                          child: Image.asset('assets/png/profile-1.png'),
+                        ),
                       ),
-                    ),
+                    // ),
                   ],
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      ///create
-                      child: FlatButton(
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/meetcreated',
-                              arguments: 'you are the server');
-                          _runServer();
-                        },
-                        child: Image.asset('assets/png/create-1.png'),
+                Padding(
+                  padding: const EdgeInsets.only(top: 30,bottom: 30),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        ///create
+                        child: FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/meetcreated',
+                                arguments: 'you are the server');
+                            _runServer();
+                          },
+                          child: Image.asset('assets/png/create-1.png'),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      ///join
-                      child: FlatButton(
-                        onPressed: () {
-                          ipEnter = myController.text;
-                          print("ip enter: $ipEnter");
-                          Navigator.of(context)
-                              .pushNamed('/meetjoin', arguments: ipEnter);
-                        },
-                        child: Image.asset('assets/png/join-1.png'),
-                        // child: Image.asset('assets/logo.svg'),
+                      Expanded(
+                        ///join
+                        child: FlatButton(
+                          onPressed: () {
+                            ipEnter = myController.text;
+                            print("ip enter: $ipEnter");
+                            Navigator.of(context)
+                                .pushNamed('/meetjoin', arguments: ipEnter);
+                          },
+                          child: Image.asset('assets/png/join-1.png'),
+                          // child: Image.asset('assets/logo.svg'),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-                TextField(
-                  controller: myController,
-                  decoration: InputDecoration(
-                      labelText: "IP Address Meeting",
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter ip address'),
+                Padding(
+                  padding: const EdgeInsets.only(top: 30,bottom: 30),
+                  child: TextField(
+                    controller: myController,
+                    decoration: InputDecoration(
+                        labelText: "IP Address Meeting",
+                        border: OutlineInputBorder(),
+                        hintText: 'Enter ip address'),
+                  ),
                 ),
               ],
             ),
           ),
+    ),
           ),
     );
   }
