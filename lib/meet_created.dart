@@ -9,8 +9,8 @@ import 'package:near_voice/sound_stream.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-const _PORT = 8888;
-const _SERVER_URL = 'ws://192.168.71.10:8888';
+// const _PORT = 8888;
+// const _SERVER_URL = 'ws://192.168.71.10:8888';
 // var ipPhone;
 
 class MeetCreated extends StatefulWidget {
@@ -46,22 +46,22 @@ class _MeetCreatedState extends State<MeetCreated> {
     initPlugin();
 
     ///ip address
-    NetworkInterface.list(includeLoopback: false, type: InternetAddressType.any)
-        .then((List<NetworkInterface> interfaces) {
-      setState(() {
-        _networkInterface = "";
-        interfaces.forEach((interface) {
-          // _networkInterface += "### name: ${interface.name}\n";
-          _networkInterface;
-          int i = 0;
-          ipPhone = interface.addresses;
-          print("ip gotten: $ipPhone");
-          interface.addresses.forEach((address) {
-            _networkInterface += "${i++}) ${address.address}\n";
-          });
-        });
-      });
-    });
+    // NetworkInterface.list(includeLoopback: false, type: InternetAddressType.any)
+    //     .then((List<NetworkInterface> interfaces) {
+    //   setState(() {
+    //     _networkInterface = "";
+    //     interfaces.forEach((interface) {
+    //       // _networkInterface += "### name: ${interface.name}\n";
+    //       _networkInterface;
+    //       int i = 0;
+    //       ipPhone = interface.addresses;
+    //       print("ip gotten: $ipPhone");
+    //       interface.addresses.forEach((address) {
+    //         _networkInterface += "${i++}) ${address.address}\n";
+    //       });
+    //     });
+    //   });
+    // });
   }
 
   @override
@@ -143,7 +143,8 @@ class _MeetCreatedState extends State<MeetCreated> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text("  $_networkInterface"),
+                    // Text("  $_networkInterface"),
+                    Text("server: $ipPhone"),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [

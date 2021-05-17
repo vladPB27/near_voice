@@ -52,24 +52,25 @@ class _MeetJoinState extends State<MeetJoin> {
     print("ip retrieve: $ipRetrieve");
 
     ///ip address
-    NetworkInterface.list(includeLoopback: false, type: InternetAddressType.any)
-        .then((List<NetworkInterface> interfaces) {
-      setState(() {
-        _networkInterface = "";
-        interfaces.forEach((interface) {
-          // _networkInterface += "### name: ${interface.name}\n";
-          _networkInterface;
-          int i = 0;
-          ipEnter = interface.addresses;
-          var ipPhones = interface.name;
-          print("ip gotten: $ipPhone");
-          print("ip name: $ipPhones");
-          interface.addresses.forEach((address) {
-            _networkInterface += "${i++}) ${address.address}\n";
-          });
-        });
-      });
-    });
+    /// error found
+    // NetworkInterface.list(includeLoopback: false, type: InternetAddressType.any)
+    //     .then((List<NetworkInterface> interfaces) {
+    //   setState(() {
+    //     _networkInterface = "";
+    //     interfaces.forEach((interface) {
+    //       // _networkInterface += "### name: ${interface.name}\n";
+    //       _networkInterface;
+    //       int i = 0;
+    //       ipEnter = interface.addresses;
+    //       var ipPhones = interface.name;
+    //       print("ip gotten: $ipPhone");
+    //       print("ip name: $ipPhones");
+    //       interface.addresses.forEach((address) {
+    //         _networkInterface += "${i++}) ${address.address}\n";
+    //       });
+    //     });
+    //   });
+    // });
   }
 
   @override
@@ -148,7 +149,8 @@ class _MeetJoinState extends State<MeetJoin> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text("  $_networkInterface"),
+              // Text("  $_networkInterface"),
+              Text("client: $ipPhone"),
               Text(
                 widget.data,
                 style: TextStyle(fontSize: 20),

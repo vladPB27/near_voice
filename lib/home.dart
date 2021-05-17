@@ -45,6 +45,7 @@ class _InitialPageState extends State<Home> {
     setState(() {
       _ip = ipAddress;
       ipPhone = _ip;
+      print("check ip: $ipPhone");
     });
   }
 
@@ -59,16 +60,16 @@ class _InitialPageState extends State<Home> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          // resizeToAvoidBottomInset: false,
-          backgroundColor: Colors.white,
-          // backgroundColor: HexColor("#006059"),
-          body: SingleChildScrollView(
+        // resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.white,
+        // backgroundColor: HexColor("#006059"),
+        body: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.all(35),
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 20,bottom: 50),
+                  padding: const EdgeInsets.only(top: 20, bottom: 50),
                   child: Row(
                     children: [
                       Icon(
@@ -89,19 +90,19 @@ class _InitialPageState extends State<Home> {
                 Row(
                   children: [
                     // Padding(
-                      // padding: const EdgeInsets.only(bottom: 5.0),
-                      // child:
-                      Expanded(
-                        child: FlatButton(
-                          onPressed: () {},
-                          child: Image.asset('assets/png/profile-1.png'),
-                        ),
+                    // padding: const EdgeInsets.only(bottom: 5.0),
+                    // child:
+                    Expanded(
+                      child: FlatButton(
+                        onPressed: () {},
+                        child: Image.asset('assets/png/profile-1.png'),
                       ),
+                    ),
                     // ),
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 30,bottom: 30),
+                  padding: const EdgeInsets.only(top: 30, bottom: 30),
                   child: Row(
                     children: [
                       Expanded(
@@ -132,7 +133,7 @@ class _InitialPageState extends State<Home> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 30,bottom: 30),
+                  padding: const EdgeInsets.only(top: 30, bottom: 30),
                   child: TextField(
                     controller: myController,
                     decoration: InputDecoration(
@@ -144,8 +145,8 @@ class _InitialPageState extends State<Home> {
               ],
             ),
           ),
-    ),
-          ),
+        ),
+      ),
     );
   }
 }
