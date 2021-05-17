@@ -23,7 +23,6 @@ class MeetJoin extends StatefulWidget {
 }
 
 class _MeetJoinState extends State<MeetJoin> {
-
   String _networkInterface;
 
   RecorderStream _recorder = RecorderStream();
@@ -39,7 +38,6 @@ class _MeetJoinState extends State<MeetJoin> {
   // final channel = IOWebSocketChannel.connect(_SERVER_URL);
   final channel = IOWebSocketChannel.connect("ws://${ipRetrieve}:8888");
 
-  // final channel = IOWebSocketChannel.connect("ws://${ipTest}:8888");
   // final channel = IOWebSocketChannel.connect("ws://192.168.71.10:8888");
 
   @override
@@ -50,27 +48,6 @@ class _MeetJoinState extends State<MeetJoin> {
 
     initPlugin();
     print("ip retrieve: $ipRetrieve");
-
-    ///ip address
-    /// error found
-    // NetworkInterface.list(includeLoopback: false, type: InternetAddressType.any)
-    //     .then((List<NetworkInterface> interfaces) {
-    //   setState(() {
-    //     _networkInterface = "";
-    //     interfaces.forEach((interface) {
-    //       // _networkInterface += "### name: ${interface.name}\n";
-    //       _networkInterface;
-    //       int i = 0;
-    //       ipEnter = interface.addresses;
-    //       var ipPhones = interface.name;
-    //       print("ip gotten: $ipPhone");
-    //       print("ip name: $ipPhones");
-    //       interface.addresses.forEach((address) {
-    //         _networkInterface += "${i++}) ${address.address}\n";
-    //       });
-    //     });
-    //   });
-    // });
   }
 
   @override
@@ -85,6 +62,8 @@ class _MeetJoinState extends State<MeetJoin> {
   Future<void> initPlugin() async {
     channel.stream.listen((event) async {
       print(event);
+
+      channel.sink.add(ipPhone); //send ip to server
       if (_isPlaying) _player.writeChunk(event);
     });
 
@@ -128,6 +107,10 @@ class _MeetJoinState extends State<MeetJoin> {
     });
   }
 
+  void sendIp() {
+    channel.sink.add("use: $ipPhone");
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -149,12 +132,13 @@ class _MeetJoinState extends State<MeetJoin> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              // Text("  $_networkInterface"),
               Text("client: $ipPhone"),
+              Text("client hi"),
               Text(
                 widget.data,
                 style: TextStyle(fontSize: 20),
               ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -186,20 +170,12 @@ class _MeetJoinState extends State<MeetJoin> {
                   ),
                 ],
               ),
-              // Text('${widget.arguments}'),
-              // RaisedButton(
-              //   color: Colors.lightGreen,
-              //   textColor: Colors.white,
-              //   onPressed: () {
-              //     // Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home2()));
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(builder: (context) => Home()),
-              //     );
-              //   },
-              //   // onPressed: () => Navigator.pushNamed(context, "Home2"),
-              //   child: Text('Back'),
-              // )
+              RaisedButton(
+                onPressed: () {
+                  sendIp();
+                },
+                child: Text('show ip'),
+              ),
             ],
           ),
         ),

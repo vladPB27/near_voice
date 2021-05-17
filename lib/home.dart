@@ -94,7 +94,10 @@ class _InitialPageState extends State<Home> {
                     // child:
                     Expanded(
                       child: FlatButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          ipEnter = myController.text;
+                          Navigator.of(context).pushNamed('/profile', arguments: ipEnter);
+                        },
                         child: Image.asset('assets/png/profile-1.png'),
                       ),
                     ),

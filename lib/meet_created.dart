@@ -44,24 +44,6 @@ class _MeetCreatedState extends State<MeetCreated> {
   void initState() {
     super.initState();
     initPlugin();
-
-    ///ip address
-    // NetworkInterface.list(includeLoopback: false, type: InternetAddressType.any)
-    //     .then((List<NetworkInterface> interfaces) {
-    //   setState(() {
-    //     _networkInterface = "";
-    //     interfaces.forEach((interface) {
-    //       // _networkInterface += "### name: ${interface.name}\n";
-    //       _networkInterface;
-    //       int i = 0;
-    //       ipPhone = interface.addresses;
-    //       print("ip gotten: $ipPhone");
-    //       interface.addresses.forEach((address) {
-    //         _networkInterface += "${i++}) ${address.address}\n";
-    //       });
-    //     });
-    //   });
-    // });
   }
 
   @override
@@ -76,6 +58,7 @@ class _MeetCreatedState extends State<MeetCreated> {
   Future<void> initPlugin() async {
     channel.stream.listen((event) async {
       print(event);
+      channel.sink.add('ip receive; $ipPhone');
       if (_isPlaying) _player.writeChunk(event);
     });
 
