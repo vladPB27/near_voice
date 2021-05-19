@@ -58,7 +58,7 @@ class _MeetCreatedState extends State<MeetCreated> {
   Future<void> initPlugin() async {
     channel.stream.listen((event) async {
       print(event);
-      channel.sink.add('ip receive; $ipPhone');
+      // channel.sink.add('ip receive; $ipPhone');
       if (_isPlaying) _player.writeChunk(event);
     });
 
@@ -159,24 +159,6 @@ class _MeetCreatedState extends State<MeetCreated> {
                         ),
                       ],
                     ),
-
-                    // Text(
-                    //   widget.data,
-                    //   style: TextStyle(fontSize: 20),
-                    // ),
-
-                    // RaisedButton(
-                    //   color: Colors.lightGreen,
-                    //   textColor: Colors.white,
-                    //   onPressed: () {
-                    //     Navigator.push(
-                    //       context,
-                    //       MaterialPageRoute(builder: (context) => Home()),
-                    //     );
-                    //   },
-                    //   // onPressed: () => Navigator.pushNamed(context, "Home2"),
-                    //   child: Text('Back'),
-                    // )
                   ],
                 ),
               ),

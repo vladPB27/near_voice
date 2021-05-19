@@ -63,7 +63,7 @@ class _MeetJoinState extends State<MeetJoin> {
     channel.stream.listen((event) async {
       print(event);
 
-      channel.sink.add(ipPhone); //send ip to server
+      channel.sink.add('ip client joined : ${ipPhone}'); //send ip to server
       if (_isPlaying) _player.writeChunk(event);
     });
 

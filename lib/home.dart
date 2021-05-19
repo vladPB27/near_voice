@@ -96,7 +96,9 @@ class _InitialPageState extends State<Home> {
                       child: FlatButton(
                         onPressed: () {
                           ipEnter = myController.text;
-                          Navigator.of(context).pushNamed('/profile', arguments: ipEnter);
+                          Navigator.of(context).pushNamed('/profile',
+                              // arguments: ipEnter
+                          );
                         },
                         child: Image.asset('assets/png/profile-1.png'),
                       ),
@@ -155,20 +157,6 @@ class _InitialPageState extends State<Home> {
 }
 
 void _runServer() async {
-  // for (var interface in await NetworkInterface.list()) {
-  //   print('== Interface: ${interface.name} ==');
-  //   print('== Interface 2: ${interface.addresses} ==');
-  //   // print("ipmobile: ${interface.addresses[0]}");
-  //   // print("ipmobile: ${interface}");
-  //   for (var addr in interface.addresses) {
-  //     print(
-  //         '${addr.address} ${addr.host} ${addr.isLoopback} ${addr.rawAddress} ${addr.type.name}');
-  //     if (addr.address.substring(0, 3) == '192') {
-  //       ipPhone = addr.address;
-  //       print("ip phone: ${ipPhone}");
-  //     }
-  //   }
-  // }
 
   final connections = Set<WebSocket>();
   // HttpServer.bind('192.168.71.10', _PORT).then((HttpServer server) {
