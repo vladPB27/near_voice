@@ -58,13 +58,14 @@ class _MeetJoinState extends State<MeetJoin> {
     super.dispose();
   }
 
+
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlugin() async {
 
-    channel.stream.listen((event) {
-      channel.sink.add('ip client joined : ${ipPhone}'); //send ip to server
-
-    });
+    // channel.stream.listen((event) {
+    //   channel.sink.add('ip client joined : ${ipPhone}'); //send ip to server
+    //
+    // });
 
     channel.stream.listen((event) async {
       print(event);

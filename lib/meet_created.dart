@@ -58,7 +58,7 @@ class _MeetCreatedState extends State<MeetCreated> {
   Future<void> initPlugin() async {
     channel.stream.listen((event) async {
       print(event);
-      channel.sink.add('ip server; $ipPhone');
+      // channel.sink.add('ip server; $ipPhone');
       if (_isPlaying) _player.writeChunk(event);
     });
 
