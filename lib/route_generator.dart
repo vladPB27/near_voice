@@ -6,6 +6,7 @@ import 'package:near_voice/main.dart';
 import 'package:near_voice/meet_created.dart';
 import 'package:near_voice/meet_join.dart';
 import 'package:near_voice/profile.dart';
+import 'package:near_voice/users_connected.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -30,6 +31,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => MeetJoin(data:args));
       case '/profile':
         return MaterialPageRoute(builder: (_) => Profile(data:args));
+      case '/users':
+        return MaterialPageRoute(builder: (_) => UserConnected());
       case '/third':
         // if (args is String){
         //   return MaterialPageRoute(

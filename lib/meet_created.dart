@@ -58,7 +58,7 @@ class _MeetCreatedState extends State<MeetCreated> {
   Future<void> initPlugin() async {
     channel.stream.listen((event) async {
       print(event);
-      // channel.sink.add('ip receive; $ipPhone');
+      channel.sink.add('ip server; $ipPhone');
       if (_isPlaying) _player.writeChunk(event);
     });
 
@@ -128,6 +128,12 @@ class _MeetCreatedState extends State<MeetCreated> {
                   children: [
                     // Text("  $_networkInterface"),
                     Text("server: $ipPhone"),
+                    RaisedButton(
+                        onPressed: (){
+                          Navigator.of(context).pushNamed('/users');
+                    },
+                    child: Text('show users'),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [

@@ -60,10 +60,16 @@ class _MeetJoinState extends State<MeetJoin> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlugin() async {
+
+    channel.stream.listen((event) {
+      channel.sink.add('ip client joined : ${ipPhone}'); //send ip to server
+
+    });
+
     channel.stream.listen((event) async {
       print(event);
 
-      channel.sink.add('ip client joined : ${ipPhone}'); //send ip to server
+      // channel.sink.add('ip client joined : ${ipPhone}'); //send ip to server
       if (_isPlaying) _player.writeChunk(event);
     });
 
@@ -133,10 +139,15 @@ class _MeetJoinState extends State<MeetJoin> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text("client: $ipPhone"),
-              Text("client hi"),
               Text(
                 widget.data,
                 style: TextStyle(fontSize: 20),
+              ),
+              RaisedButton(
+                onPressed: (){
+                  Navigator.of(context).pushNamed('/users');
+              },
+                child: Text('show users'),
               ),
 
               Row(
