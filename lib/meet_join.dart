@@ -108,11 +108,14 @@ class _MeetJoinState extends State<MeetJoin> {
     });
   }
 
+  bool selected = true;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: HexColor('#006059'),
         appBar: AppBar(
           title: Text(
             'nearvoice client',
@@ -120,76 +123,96 @@ class _MeetJoinState extends State<MeetJoin> {
           ),
           backgroundColor: HexColor('#006059'),
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/nearvoicefont.jpg'),
-                    fit: BoxFit.cover)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text("client: $ipPhone"),
-                Text(
-                  widget.data,
-                  style: TextStyle(fontSize: 20),
-                ),
-                // Expanded(
-                //     child: StreamBuilder(
-                //       stream: channel.stream,
-                //       builder: (context, snapshot){
-                //         if(snapshot.hasData){
-                //           messageList.add(snapshot.data);
-                //         }
-                //         return getMessageList();
-                //       },
-                //     )
-                // ),
-                Container(height: 600, child: UserConnected()),
-                RaisedButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed('/users');
-                    channel.sink.add('user j: $ipPhone');
-                  },
-                  child: Text('show users'),
-                ),
+        body:
+            // SingleChildScrollView(
+            //   child:
+            Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/nearvoicefont.jpg'),
+                  fit: BoxFit.cover)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text("client: $ipPhone"),
+              Text(
+                widget.data,
+                style: TextStyle(fontSize: 20),
+              ),
+              // Expanded(
+              //     child: StreamBuilder(
+              //       stream: channel.stream,
+              //       builder: (context, snapshot){
+              //         if(snapshot.hasData){
+              //           messageList.add(snapshot.data);
+              //         }
+              //         return getMessageList();
+              //       },
+              //     )
+              // ),
+              // Container(height: 550, child: UserConnected()),
+              RaisedButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/users');
+                  channel.sink.add('user j: $ipPhone');
+                },
+                child: Text('show users'),
+              ),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Icon(
-                      Icons.arrow_back,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Icon(
+                    Icons.arrow_back,
+                    size: 60,
+                    color: Colors.white70,
+                  ),
+                  GestureDetector(
+                    onTapDown: (tap) {
+                      _startRecord();
+                    },
+                    onTapUp: (tap) {
+                      _stopRecord();
+                    },
+                    onTapCancel: () {
+                      _stopRecord();
+                    },
+                    child: Icon(
+                      _isRecording ? Icons.mic_off : Icons.mic,
                       size: 60,
                       color: Colors.white70,
                     ),
-                    GestureDetector(
-                      onTapDown: (tap) {
-                        _startRecord();
-                      },
-                      onTapUp: (tap) {
-                        _stopRecord();
-                      },
-                      onTapCancel: () {
-                        _stopRecord();
-                      },
-                      child: Icon(
-                        _isRecording ? Icons.mic_off : Icons.mic,
-                        size: 60,
-                        color: Colors.white70,
-                      ),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      selected ? Icons.mic_off : Icons.mic,
+                      size: 50,
                     ),
-                    Icon(
-                      Icons.volume_mute,
-                      size: 60,
-                      color: Colors.white70,
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                    onPressed: () {
+                      setState(() {
+                        selected = !selected;
+                        if (selected) {
+                          print('button pressed');
+                          _startRecord();
+                        } else {
+                          print('button unpressed');
+                          _stopRecord();
+                        }
+                      });
+                    },
+                  ),
+                  Icon(
+                    Icons.volume_mute,
+                    size: 60,
+                    color: Colors.white70,
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
+        // ),
       ),
     );
   }

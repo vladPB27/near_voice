@@ -7,6 +7,7 @@ var ipRetrieves = ipEnter;
 class UserConnected extends StatefulWidget {
   // const UserConnected({Key key}) : super(key: key);
 
+
   final String data;
 
   UserConnected({
@@ -20,6 +21,7 @@ class UserConnected extends StatefulWidget {
 
 class _UserConnectedState extends State<UserConnected> {
   final TextEditingController inputController = TextEditingController();
+
   final channel = IOWebSocketChannel.connect("ws://${ipRetrieves}:8888");
 
   List<String> messageList = [];
@@ -45,13 +47,13 @@ class _UserConnectedState extends State<UserConnected> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Users'),
-      ),
+      // appBar: AppBar(
+      //   title: Text('Users'),
+      // ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(top: 45),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text('chat'),
             Form(
@@ -96,7 +98,7 @@ class _UserConnectedState extends State<UserConnected> {
                   return getMessageList();
                 },
               ),
-            )
+            ),
           ],
         ),
       ),

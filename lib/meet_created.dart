@@ -115,60 +115,64 @@ class _MeetCreatedState extends State<MeetCreated> {
                 ),
                 backgroundColor: HexColor('#006059'),
               ),
-              body: Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/nearvoicefont.jpg'),
-                        // image: AssetImage('assets/icon/icon.png'),
-                        fit: BoxFit.cover)
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    // Text("  $_networkInterface"),
-                    Text("server: $ipPhone"),
-                    RaisedButton(
-                        onPressed: (){
-                          Navigator.of(context).pushNamed('/users');
-                          channel.sink.add('user c: $ipPhone');
-                    },
-                    child: Text('show users'),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Icon(
-                          Icons.arrow_back,
-                          size: 60,
-                          color: Colors.white70,
-                        ),
-                        GestureDetector(
-                          onTapDown: (tap) {
-                            _startRecord();
-                          },
-                          onTapUp: (tap) {
-                            _stopRecord();
-                          },
-                          onTapCancel: () {
-                            _stopRecord();
-                          },
-                          child: Icon(
-                            _isRecording ? Icons.mic_off : Icons.mic,
+              body:
+                // SingleChildScrollView(
+                // child:
+                Container(
+                  padding: EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/nearvoicefont.jpg'),
+                          fit: BoxFit.cover)
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      // Text("  $_networkInterface"),
+                      Text("server: $ipPhone"),
+                      RaisedButton(
+                          onPressed: (){
+                            Navigator.of(context).pushNamed('/users');
+                            channel.sink.add('user c: $ipPhone');
+                      },
+                      child: Text('show users'),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Icon(
+                            Icons.arrow_back,
                             size: 60,
                             color: Colors.white70,
                           ),
-                        ),
-                        Icon(
-                          Icons.volume_mute,
-                          size: 60,
-                          color: Colors.white70,
-                        ),
-                      ],
-                    ),
-                  ],
+                          GestureDetector(
+                            onTapDown: (tap) {
+                              _startRecord();
+                            },
+                            onTapUp: (tap) {
+                              _stopRecord();
+                            },
+                            onTapCancel: () {
+                              _stopRecord();
+                            },
+                            child: Icon(
+                              _isRecording ? Icons.mic_off : Icons.mic,
+                              size: 60,
+                              color: Colors.white70,
+                            ),
+                          ),
+                          Icon(
+                            Icons.volume_mute,
+                            size: 60,
+                            color: Colors.white70,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+              // ),
             ),
     );
   }
