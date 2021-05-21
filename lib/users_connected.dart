@@ -25,17 +25,35 @@ class _UserConnectedState extends State<UserConnected> {
   List<String> messageList = [];
 
   @override
+  void initState() {
+    super.initState();
+    print('lista mostrada');
+
+    // initPlug();//test
+
+    for(String m in messageList){
+      print("element: $m");
+    }
+  }
+
+  Future<void> initPlug() async{
+    channel.stream.listen((event) async{
+      channel.sink.add("haber: $ipPhone");
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('test'),
+        title: Text('Users'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('streaming'),
+            Text('chat'),
             Form(
               child: TextFormField(
                 controller: inputController,
@@ -51,6 +69,7 @@ class _UserConnectedState extends State<UserConnected> {
                 if (inputController.text.isNotEmpty) {
                   print(inputController.text);
                   channel.sink.add(inputController.text);
+                  // channel.sink.add('user: $ipPhone');
                   // setState(() {
                   //   messageList.add(inputController.text);
                   // });
@@ -64,6 +83,14 @@ class _UserConnectedState extends State<UserConnected> {
                 stream: channel.stream,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
+
+                    // for (var m in messageList){
+                    //     if(m != messageList[0] || m != messageList[1] ){
+                    //       print('no existe');
+                    //       // messageList.add(snapshot.data);
+                    //       messageList.add(snapshot.data);
+                    //     }
+                    // }
                     messageList.add(snapshot.data);
                   }
                   return getMessageList();
@@ -93,11 +120,12 @@ class _UserConnectedState extends State<UserConnected> {
     super.dispose();
   }
 
-  ListView getMessageList() {
+  Future<ListView> getMessage() async{
     List<Widget> listWidget = [];
 
     // for (String message in messageList) {
     for (String message in messageList) {
+      // if(message != 'sdd') {
       listWidget.add(
         ListTile(
           title: Container(
@@ -113,9 +141,37 @@ class _UserConnectedState extends State<UserConnected> {
           ),
         ),
       );
+      // };
     }
     return ListView(
       children: listWidget,
     );
   }
+
+  ListView getMessageList() {
+    List<Widget> listWidget = [];
+
+    for (String message in messageList) {
+        listWidget.add(
+          ListTile(
+            title: Container(
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  message,
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              color: Colors.teal[50],
+              height: 60,
+            ),
+          ),
+        );
+      // };
+    }
+    return ListView(
+      children: listWidget,
+    );
+  }
+
 }

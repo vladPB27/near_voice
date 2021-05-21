@@ -131,6 +131,7 @@ class _MeetCreatedState extends State<MeetCreated> {
                     RaisedButton(
                         onPressed: (){
                           Navigator.of(context).pushNamed('/users');
+                          channel.sink.add('user c: $ipPhone');
                     },
                     child: Text('show users'),
                     ),
