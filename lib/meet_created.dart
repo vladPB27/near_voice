@@ -25,7 +25,6 @@ class MeetCreated extends StatefulWidget {
 }
 
 class _MeetCreatedState extends State<MeetCreated> {
-  String _networkInterface;
 
   RecorderStream _recorder = RecorderStream();
   PlayerStream _player = PlayerStream();
@@ -39,6 +38,7 @@ class _MeetCreatedState extends State<MeetCreated> {
 
   // final channel = IOWebSocketChannel.connect(_SERVER_URL);
   final channel = IOWebSocketChannel.connect("ws://${ipPhone}:8888");
+  final channelTwo = IOWebSocketChannel.connect("ws://${ipPhone}:8888");
 
   @override
   void initState() {
@@ -138,7 +138,7 @@ class _MeetCreatedState extends State<MeetCreated> {
                   RaisedButton(
                     onPressed: () {
                       // Navigator.of(context).pushNamed('/users');
-                      channel.sink.add('user c: $ipPhone');
+                      channelTwo.sink.add('user c: $ipPhone');
                     },
                     child: Text('show users'),
                   ),
@@ -152,7 +152,6 @@ class _MeetCreatedState extends State<MeetCreated> {
                       child: UserConnected(),
                     ),
                   ),
-
               ),
 
               Container(

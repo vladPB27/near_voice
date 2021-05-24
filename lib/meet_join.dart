@@ -24,7 +24,6 @@ class MeetJoin extends StatefulWidget {
 }
 
 class _MeetJoinState extends State<MeetJoin> {
-  String _networkInterface;
 
   List<String> messageList = [];
 
@@ -40,6 +39,7 @@ class _MeetJoinState extends State<MeetJoin> {
 
   // final channel = IOWebSocketChannel.connect(_SERVER_URL);
   final channel = IOWebSocketChannel.connect("ws://${ipRetrieve}:8888");
+  final channelTwo = IOWebSocketChannel.connect("ws://${ipRetrieve}:8888");
 
   // final channel = IOWebSocketChannel.connect("ws://192.168.71.10:8888");
 
@@ -143,7 +143,10 @@ class _MeetJoinState extends State<MeetJoin> {
                   RaisedButton(
                     onPressed: () {
                       // Navigator.of(context).pushNamed('/users');
-                      channel.sink.add('user j: $ipPhone');
+                      channelTwo.sink.add('user j: $ipPhone');
+                      // setState(() {
+                      //   channelTwo.sink.add('u : $ipPhone');
+                      // });
                     },
                     child: Text('show users'),
                   ),
@@ -173,7 +176,6 @@ class _MeetJoinState extends State<MeetJoin> {
                     child: UserConnected(),
                   ),
                 ),
-
               ),
 
               Container(

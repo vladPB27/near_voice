@@ -21,7 +21,7 @@ class UserConnected extends StatefulWidget {
 class _UserConnectedState extends State<UserConnected> {
   final TextEditingController inputController = TextEditingController();
 
-  final channel = IOWebSocketChannel.connect("ws://${ipRetrieves}:8888");
+  final channelThird = IOWebSocketChannel.connect("ws://${ipRetrieves}:8888");
 
   List<String> messageList = [];
 
@@ -38,8 +38,8 @@ class _UserConnectedState extends State<UserConnected> {
   }
 
   Future<void> initPlug() async {
-    channel.stream.listen((event) async {
-      channel.sink.add("haber: $ipPhone");
+    channelThird.stream.listen((event) async {
+      channelThird.sink.add("haber: $ipPhone");
     });
   }
 
@@ -71,8 +71,8 @@ class _UserConnectedState extends State<UserConnected> {
             //   onPressed: () {
             //     if (inputController.text.isNotEmpty) {
             //       print(inputController.text);
-            //       channel.sink.add(inputController.text);
-            //       // channel.sink.add('user: $ipPhone');
+            //       channelThird.sink.add(inputController.text);
+            //       // channelThird.sink.add('user: $ipPhone');
             //       // setState(() {
             //       //   messageList.add(inputController.text);
             //       // });
@@ -83,7 +83,7 @@ class _UserConnectedState extends State<UserConnected> {
             // Expanded(child: getMessageList())
             Expanded(
               child: StreamBuilder(
-                stream: channel.stream,
+                stream: channelThird.stream,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     // for (var m in messageList){
@@ -110,8 +110,8 @@ class _UserConnectedState extends State<UserConnected> {
               onPressed: () {
                 if (inputController.text.isNotEmpty) {
                   print(inputController.text);
-                  channel.sink.add(inputController.text);
-                  // channel.sink.add('user: $ipPhone');
+                  channelThird.sink.add(inputController.text);
+                  // channelThird.sink.add('user: $ipPhone');
                   // setState(() {
                   //   messageList.add(inputController.text);
                   // });
@@ -136,7 +136,7 @@ class _UserConnectedState extends State<UserConnected> {
 
   @override
   void dispose() {
-    channel.sink.close();
+    channelThird.sink.close();
     super.dispose();
   }
 
