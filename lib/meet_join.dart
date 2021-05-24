@@ -115,27 +115,40 @@ class _MeetJoinState extends State<MeetJoin> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: HexColor('#006059'),
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text(
-            'nearvoice client',
-            style: TextStyle(color: Colors.white70),
+          title: Center(
+            child: Text(
+              'Connected',
+              style: TextStyle(color: Colors.white70,fontSize: 25),
+            ),
           ),
           backgroundColor: HexColor('#006059'),
         ),
-        body:
-            // SingleChildScrollView(
-            //   child:
-            Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/nearvoicefont.jpg'),
-                  fit: BoxFit.cover)),
+        body: Container(
+          // decoration: BoxDecoration(
+          //     image: DecorationImage(
+          //         image: AssetImage('assets/nearvoicefont.jpg'),
+          //         fit: BoxFit.cover)
+          // ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("client: $ipPhone"),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text("client: $ipPhone"),
+                  RaisedButton(
+                    onPressed: () {
+                      // Navigator.of(context).pushNamed('/users');
+                      channel.sink.add('user j: $ipPhone');
+                    },
+                    child: Text('show users'),
+                  ),
+                ],
+              ),
               Text(
                 widget.data,
                 style: TextStyle(fontSize: 20),
@@ -152,62 +165,71 @@ class _MeetJoinState extends State<MeetJoin> {
               //     )
               // ),
               // Container(height: 550, child: UserConnected()),
-              RaisedButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/users');
-                  channel.sink.add('user j: $ipPhone');
-                },
-                child: Text('show users'),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    color: HexColor('#e7ece6'),
+                    child: UserConnected(),
+                  ),
+                ),
+
               ),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Icon(
-                    Icons.arrow_back,
-                    size: 60,
-                    color: Colors.white70,
-                  ),
-                  GestureDetector(
-                    onTapDown: (tap) {
-                      _startRecord();
-                    },
-                    onTapUp: (tap) {
-                      _stopRecord();
-                    },
-                    onTapCancel: () {
-                      _stopRecord();
-                    },
-                    child: Icon(
-                      _isRecording ? Icons.mic_off : Icons.mic,
+              Container(
+                color: HexColor('#006059'),
+                height: 80,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Icon(
+                      Icons.arrow_back,
                       size: 60,
                       color: Colors.white70,
                     ),
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      selected ? Icons.mic_off : Icons.mic,
-                      size: 50,
+                    // GestureDetector(
+                    //   onTapDown: (tap) {
+                    //     _startRecord();
+                    //   },
+                    //   onTapUp: (tap) {
+                    //     _stopRecord();
+                    //   },
+                    //   onTapCancel: () {
+                    //     _stopRecord();
+                    //   },
+                    //   child: Icon(
+                    //     _isRecording ? Icons.mic_off : Icons.mic,
+                    //     size: 60,
+                    //     color: Colors.white70,
+                    //   ),
+                    // ),
+                    IconButton(
+                      icon: Icon(
+                        selected ? Icons.mic_off : Icons.mic,
+                        size: 50,
+                        color: Colors.white70,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          selected = !selected;
+                          if (selected) {
+                            print('muted');
+                            _stopRecord();
+                          } else {
+                            print('talking');
+                            _startRecord();
+
+                          }
+                        });
+                      },
                     ),
-                    onPressed: () {
-                      setState(() {
-                        selected = !selected;
-                        if (selected) {
-                          print('button pressed');
-                          _startRecord();
-                        } else {
-                          print('button unpressed');
-                          _stopRecord();
-                        }
-                      });
-                    },
-                  ),
-                  Icon(
-                    Icons.volume_mute,
-                    size: 60,
-                    color: Colors.white70,
-                  ),
-                ],
+                    Icon(
+                      Icons.volume_mute,
+                      size: 60,
+                      color: Colors.white70,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

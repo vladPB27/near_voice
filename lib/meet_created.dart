@@ -2,7 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:near_voice/home.dart';
+import 'package:near_voice/users_connected.dart';
 import 'dart:io';
+
 // import 'package:near_voice/main.dart';
 import 'main.dart';
 import 'package:near_voice/sound_stream.dart';
@@ -15,10 +17,8 @@ import 'package:hexcolor/hexcolor.dart';
 
 class MeetCreated extends StatefulWidget {
   final String data;
-  MeetCreated({
-   Key key,
-   @required this.data
-}) : super(key: key);
+
+  MeetCreated({Key key, @required this.data}) : super(key: key);
 
   @override
   _MeetCreatedState createState() => _MeetCreatedState();
@@ -102,78 +102,117 @@ class _MeetCreatedState extends State<MeetCreated> {
     });
   }
 
+  bool selected = true;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-          backgroundColor: HexColor('#006059'),
-              appBar: AppBar(
-                title: Text(
-                  'nearvoice server',
-                  style: TextStyle(color: Colors.white70),
-                ),
-                backgroundColor: HexColor('#006059'),
-              ),
-              body:
-                // SingleChildScrollView(
-                // child:
-                Container(
-                  padding: EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/nearvoicefont.jpg'),
-                          fit: BoxFit.cover)
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      // Text("  $_networkInterface"),
-                      Text("server: $ipPhone"),
-                      RaisedButton(
-                          onPressed: (){
-                            Navigator.of(context).pushNamed('/users');
-                            channel.sink.add('user c: $ipPhone');
-                      },
-                      child: Text('show users'),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Icon(
-                            Icons.arrow_back,
-                            size: 60,
-                            color: Colors.white70,
-                          ),
-                          GestureDetector(
-                            onTapDown: (tap) {
-                              _startRecord();
-                            },
-                            onTapUp: (tap) {
-                              _stopRecord();
-                            },
-                            onTapCancel: () {
-                              _stopRecord();
-                            },
-                            child: Icon(
-                              _isRecording ? Icons.mic_off : Icons.mic,
-                              size: 60,
-                              color: Colors.white70,
-                            ),
-                          ),
-                          Icon(
-                            Icons.volume_mute,
-                            size: 60,
-                            color: Colors.white70,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              // ),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Center(
+            child: Text(
+              'Created',
+              style: TextStyle(color: Colors.white70, fontSize: 25),
             ),
+          ),
+          backgroundColor: HexColor('#006059'),
+        ),
+        body: Container(
+          padding: EdgeInsets.all(0.0),
+          // decoration: BoxDecoration(
+          //     image: DecorationImage(
+          //         image: AssetImage('assets/nearvoicefont.jpg'),
+          //         fit: BoxFit.cover)
+          // ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text("server: $ipPhone"),
+                  RaisedButton(
+                    onPressed: () {
+                      // Navigator.of(context).pushNamed('/users');
+                      channel.sink.add('user c: $ipPhone');
+                    },
+                    child: Text('show users'),
+                  ),
+                ],
+              ),
+              Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      color: HexColor('#e7ece6'),
+                      child: UserConnected(),
+                    ),
+                  ),
+
+              ),
+
+              Container(
+                color: HexColor('#006059'),
+                height: 80,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Icon(
+                      Icons.arrow_back,
+                      size: 50,
+                      color: Colors.white70,
+                    ),
+                    // GestureDetector(
+                    //   onTapDown: (tap) {
+                    //     _startRecord();
+                    //   },
+                    //   onTapUp: (tap) {
+                    //     _stopRecord();
+                    //   },
+                    //   onTapCancel: () {
+                    //     _stopRecord();
+                    //   },
+                    //   child: Icon(
+                    //     _isRecording ? Icons.mic_off : Icons.mic,
+                    //     size: 60,
+                    //     color: Colors.white70,
+                    //   ),
+                    // ),
+                    IconButton(
+                      icon: Icon(
+                        selected ? Icons.mic_off : Icons.mic,
+                        size: 50,
+                        color: Colors.white70,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          selected = !selected;
+                          if (selected) {
+                            print('muted');
+                            _stopRecord();
+                          } else {
+                            print('talking');
+                            _startRecord();
+                          }
+                        });
+                      },
+                    ),
+                    Icon(
+                      Icons.volume_mute,
+                      size: 50,
+                      color: Colors.white70,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

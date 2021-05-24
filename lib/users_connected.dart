@@ -7,7 +7,6 @@ var ipRetrieves = ipEnter;
 class UserConnected extends StatefulWidget {
   // const UserConnected({Key key}) : super(key: key);
 
-
   final String data;
 
   UserConnected({
@@ -33,13 +32,13 @@ class _UserConnectedState extends State<UserConnected> {
 
     // initPlug();//test
 
-    for(String m in messageList){
+    for (String m in messageList) {
       print("element: $m");
     }
   }
 
-  Future<void> initPlug() async{
-    channel.stream.listen((event) async{
+  Future<void> initPlug() async {
+    channel.stream.listen((event) async {
       channel.sink.add("haber: $ipPhone");
     });
   }
@@ -50,42 +49,43 @@ class _UserConnectedState extends State<UserConnected> {
       // appBar: AppBar(
       //   title: Text('Users'),
       // ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 45),
+      body: Container(
+        padding: const EdgeInsets.only(top: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Text('chat'),
-            Form(
-              child: TextFormField(
-                controller: inputController,
-                decoration: InputDecoration(labelText: 'send message'),
-              ),
-            ),
-            RaisedButton(
-              child: Text(
-                'send',
-                style: TextStyle(fontSize: 20),
-              ),
-              onPressed: () {
-                if (inputController.text.isNotEmpty) {
-                  print(inputController.text);
-                  channel.sink.add(inputController.text);
-                  // channel.sink.add('user: $ipPhone');
-                  // setState(() {
-                  //   messageList.add(inputController.text);
-                  // });
-                  inputController.text = '';
-                }
-              },
-            ),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Users connected'),
+
+            // Form(
+            //   child: TextFormField(
+            //     controller: inputController,
+            //     decoration: InputDecoration(labelText: 'send message'),
+            //   ),
+            // ),
+            // RaisedButton(
+            //   child: Text(
+            //     'send',
+            //     style: TextStyle(fontSize: 20),
+            //   ),
+            //   onPressed: () {
+            //     if (inputController.text.isNotEmpty) {
+            //       print(inputController.text);
+            //       channel.sink.add(inputController.text);
+            //       // channel.sink.add('user: $ipPhone');
+            //       // setState(() {
+            //       //   messageList.add(inputController.text);
+            //       // });
+            //       inputController.text = '';
+            //     }
+            //   },
+            // ),
             // Expanded(child: getMessageList())
             Expanded(
               child: StreamBuilder(
                 stream: channel.stream,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-
                     // for (var m in messageList){
                     //     if(m != messageList[0] || m != messageList[1] ){
                     //       print('no existe');
@@ -99,6 +99,30 @@ class _UserConnectedState extends State<UserConnected> {
                 },
               ),
             ),
+
+            Form(
+              child: TextFormField(
+                controller: inputController,
+                decoration: InputDecoration(labelText: 'send message'),
+              ),
+            ),
+            RaisedButton.icon(
+              onPressed: () {
+                if (inputController.text.isNotEmpty) {
+                  print(inputController.text);
+                  channel.sink.add(inputController.text);
+                  // channel.sink.add('user: $ipPhone');
+                  // setState(() {
+                  //   messageList.add(inputController.text);
+                  // });
+                  inputController.text = '';
+                }
+              },
+              icon: Icon(
+                Icons.play_arrow
+              ),
+              label: Text(''),
+            ),
           ],
         ),
       ),
@@ -110,19 +134,13 @@ class _UserConnectedState extends State<UserConnected> {
     // ),
   }
 
-  void _sendMessage() {
-    if (inputController.text.isNotEmpty) {
-      channel.sink.add(inputController.text);
-    }
-  }
-
   @override
   void dispose() {
     channel.sink.close();
     super.dispose();
   }
 
-  Future<ListView> getMessage() async{
+  Future<ListView> getMessage() async {
     List<Widget> listWidget = [];
 
     // for (String message in messageList) {
@@ -154,26 +172,25 @@ class _UserConnectedState extends State<UserConnected> {
     List<Widget> listWidget = [];
 
     for (String message in messageList) {
-        listWidget.add(
-          ListTile(
-            title: Container(
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  message,
-                  style: TextStyle(fontSize: 20),
-                ),
+      listWidget.add(
+        ListTile(
+          title: Container(
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                message,
+                style: TextStyle(fontSize: 20),
               ),
-              color: Colors.teal[50],
-              height: 60,
             ),
+            color: Colors.teal[50],
+            height: 60,
           ),
-        );
+        ),
+      );
       // };
     }
     return ListView(
       children: listWidget,
     );
   }
-
 }
